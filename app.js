@@ -87,6 +87,34 @@ var client = new Twitter({
 //  });
 //});
 
+
+function buildmonsters(){
+	var myMonster = {
+		name : "Orc",
+		hit_points : 8,
+		weakness : "Fire",
+		attack : "Club",
+		attack_bonus : 3,
+		damage_die : 6,
+		damage_bonus : 2,
+		attack_type : "Close",
+		defense : 9,
+		follow_chance : .2,
+		experience_points : 1
+	}
+	//"Orc", 8, "Fire", "Club", 3, 6, 2, "Close", 9, .2, 1);
+	console.log("monster's name is " + myMonster.name);
+	var saveMonster = MonsterDB(myMonster);
+	console.log("savemonster: \n" + saveMonster)
+	saveMonster.save( function(err){
+		console.log('attempting to save');
+		if (err) console.log('failed to save ' + saveMonster.name);
+		else console.log('saved the ' + saveMonster.name);
+	});
+}
+
+buildmonsters();
+
 //this is for testing purposes. once the methods are running correctly, this should taken out for the client stream above.
 while (true) {
 //This checks to see if a player is currently playing. If not, it allows them to play. If it does, it continues with the current game.
@@ -117,6 +145,8 @@ while (true) {
     }
   }
 }
+
+
 
 //this pulls a random test monster.
 function random_monster (which_monster) {
@@ -228,6 +258,7 @@ function database_monster(monster_choice) {
     if (!monster) {
       console.log('No monster found with name ' + monster_choice);
     }
+	// all of these methods are already baked intoyour monster Model, and should be invokable just by saying "new_monster.hit_points" (or whichever attribute you want - see how I handle password resets in my user.js route.
     var new_monster = new Monster(monster.name, monster.hit_points, monster.weakness, monster.attack, monster.attack_bonus, monster.damage_die, monster.damage_bonus, monster.attack_type, monster.defense, monster.follow_chance, monster.experience_points);
     new_monster.get_monster_info();
 
