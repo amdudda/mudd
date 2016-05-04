@@ -88,7 +88,7 @@ var client = new Twitter({
 //});
 
 
-function buildmonsters(){
+function buildmonster(){
 	var myMonster = {
 		name : "Orc",
 		hit_points : 8,
@@ -106,14 +106,15 @@ function buildmonsters(){
 	console.log("monster's name is " + myMonster.name);
 	var saveMonster = MonsterDB(myMonster);
 	console.log("savemonster: \n" + saveMonster)
-	saveMonster.save( function(err){
+	// not actually saving to db. not sure if connection prob or prob with model
+	MonsterDB(myMonster).save( function(err){
 		console.log('attempting to save');
 		if (err) console.log('failed to save ' + saveMonster.name);
 		else console.log('saved the ' + saveMonster.name);
 	});
 }
 
-buildmonsters();
+buildmonster();
 
 //this is for testing purposes. once the methods are running correctly, this should taken out for the client stream above.
 while (true) {
